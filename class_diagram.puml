@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Machine {
+  id : INT <<PK>>
+  name: VARCHAR
+  installation_date : DATE
+  expected_lifetime_hours : FLOAT
+}
+
+enum Fault {
+  id : INT <<PK>>
+  desc : VARCHAR
+}
+
+class SensorData {
+  id : INT <<PK>>
+  timestamp : DATETIME
+  vibration_x : FLOAT
+  vibration_y : FLOAT
+  speed_set : FLOAT
+  load_value : FLOAT
+}
+
+class MaintenanceAction {
+  id : INT <<PK>>
+  action_date : DATETIME
+  action_description
+  cost : FLOAT
+  is_preventive : BOOLEAN
+}
+
+
+class Prediction {
+  id : INT <<PK>>
+  timestamp : DATETIME
+  predicted_RUL_hours : FLOAT
+  confidence : FLOAT
+}
+
+class Failure {
+  id : INT <<PK>>
+  failure_date : DATETIME
+  downtime_hours : FLOAT
+}
+
+class User {
+  id : INT <<PK>>
+  name : VARCHAR
+  password : VARCHAR
+  email : VARCHAR
+}
+
+class Role {
+  role : VARCHAR <<PK>>
+}
+
+' Relationships
+Machine "1" o--"0..*" Failure : has
+Machine "1" o-- "0..*" SensorData : has
+MaintenanceAction "0..*" --o "1" Machine : performed on
+Prediction "0..*" --o "1" Machine : based on
+Prediction "0..*" o-- "1" Fault : predicts
+Failure "0..*" o-- "1" Fault : is of type
+User "0..*" o-- "0..*" Role : has
+
+@enduml
