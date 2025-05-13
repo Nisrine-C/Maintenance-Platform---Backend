@@ -1,6 +1,23 @@
 @startuml
-'https://plantuml.com/class-diagram
+' https://plantuml.com/class-diagram
 
+' ==== Styling ====
+skinparam classAttributeIconSize 0
+skinparam classFontColor DarkSlateGray
+skinparam classFontSize 14
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor Black
+skinparam classArrowColor #2E86C1
+skinparam classFontName "Arial"
+skinparam shadowing true
+skinparam roundCorner 15
+skinparam dpi 150
+skinparam arrowThickness 1.2
+
+' ==== Title ====
+title Predictive Maintenance System UML
+
+' ==== Classes ====
 class Machine {
   id : INT <<PK>>
   name: VARCHAR
@@ -8,14 +25,9 @@ class Machine {
   expected_lifetime_hours : FLOAT
 }
 
-enum Fault {
-  id : INT <<PK>>
-  desc : VARCHAR
-}
-
 class SensorData {
   id : INT <<PK>>
-  timestamp : DATETIME
+  recorded_at: DATETIME
   vibration_x : FLOAT
   vibration_y : FLOAT
   speed_set : FLOAT
@@ -25,23 +37,24 @@ class SensorData {
 class MaintenanceAction {
   id : INT <<PK>>
   action_date : DATETIME
-  action_description
+  action_description : VARCHAR
   cost : FLOAT
   is_preventive : BOOLEAN
 }
 
-
 class Prediction {
   id : INT <<PK>>
-  timestamp : DATETIME
+  predicted_at : DATETIME
   predicted_RUL_hours : FLOAT
   confidence : FLOAT
+  gear_fault : VARCHAR
 }
 
 class Failure {
   id : INT <<PK>>
   failure_date : DATETIME
   downtime_hours : FLOAT
+  gear_fault : VARCHAR
 }
 
 class User {
@@ -55,13 +68,11 @@ class Role {
   role : VARCHAR <<PK>>
 }
 
-' Relationships
-Machine "1" o--"0..*" Failure : has
+' ==== Relationships ====
+Machine "1" o-- "0..*" Failure : has
 Machine "1" o-- "0..*" SensorData : has
 MaintenanceAction "0..*" --o "1" Machine : performed on
 Prediction "0..*" --o "1" Machine : based on
-Prediction "0..*" o-- "1" Fault : predicts
-Failure "0..*" o-- "1" Fault : is of type
 User "0..*" o-- "0..*" Role : has
 
 @enduml
