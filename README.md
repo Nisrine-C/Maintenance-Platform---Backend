@@ -1,42 +1,23 @@
 # Maintenance-Platform---Backend
 ### **1. Domain Layer (Entities)**
 
-```mermaid
-erDiagram
-MACHINE ||--o{ SENSOR_DATA : "1-to-many"
-MACHINE ||--o{ MAINTENANCE : "1-to-many"
-MACHINE ||--o{ PREDICTION : "1-to-many"
-MACHINE ||--o{ FAILURE : "1-to-many"
-USER ||--o{ MAINTENANCE : "1-to-many"
-USER }|--|| ROLE : "many-to-one"
+````markdown
+# DAO Layer Architecture
 
-    MACHINE {
-        bigint id PK
-        varchar name
-        date installation_date
-    }
-    SENSOR_DATA {
-        bigint id PK
-        float vibration_x
-        float vibration_y
-        timestamp recorded_at
-        bigint machine_id FK
-    }
-    MAINTENANCE {
-        bigint id PK
-        timestamp action_date
-        boolean is_preventive
-        bigint machine_id FK
-        bigint user_id FK
-    }
-    PREDICTION {
-        bigint id PK
-        float rul_hours
-        float confidence
-        varchar fault_type
-        bigint machine_id FK
-    }
-```
+```mermaid
+flowchart TB
+    subgraph Repository_Layer
+        A[MachineRepository] -->|findBySerialNumber| B[(Machines)]
+        C[SensorDataRepository] -->|deleteByTimestampBefore| D[(SensorData)]
+        E[MaintenanceRepository] -->|calculateTotalCost| F[(Maintenance)]
+    end
+
+    style A fill:#f9f,stroke:#333
+    style C fill:#f9f,stroke:#333
+    style E fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style D fill:#bbf,stroke:#333
+    style F fill:#bbf,stroke:#333
 
 ### **2. Repository Layer**
 
