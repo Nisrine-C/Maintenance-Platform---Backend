@@ -9,15 +9,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class SensorData {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
-    private LocalDateTime recordedAt;
+    private Date recordedAt;
     private Float vibrationX, vibrationY, vibrationZ;
     private Float speedSet, loadValue;
 

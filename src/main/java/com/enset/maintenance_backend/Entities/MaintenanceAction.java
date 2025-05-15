@@ -8,17 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity @Data
 @NoArgsConstructor @AllArgsConstructor @Builder
 public class MaintenanceAction {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
-    private LocalDateTime actionDate;
+    private Date actionDate;
     private String actionDescription;
     private Float cost;
     private Boolean isPreventive;
