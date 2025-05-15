@@ -2,16 +2,17 @@
 ' https://plantuml.com/class-diagram
 
 ' ==== Styling ====
-skinparam classAttributeIconSize 0
-skinparam classFontColor DarkSlateGray
-skinparam classFontSize 14
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor Black
-skinparam classArrowColor #2E86C1
-skinparam classFontName "Arial"
+skinparam classFontName "Helvetica Neue"
+skinparam classBorderColor #CCCCCC
+skinparam classBackgroundColor #FFFFFF
+skinparam classHeaderBackgroundColor #546E7A
+skinparam classHeaderFontColor #ECEFF1
+skinparam classFontSize 16
+skinparam classRoundCorner 20
 skinparam shadowing true
-skinparam roundCorner 15
-skinparam dpi 150
+skinparam shadowColor #777777
+
+skinparam arrowColor black
 skinparam arrowThickness 1.2
 
 ' ==== Title ====
