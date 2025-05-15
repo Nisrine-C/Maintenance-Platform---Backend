@@ -1,6 +1,7 @@
 package com.enset.maintenance_backend;
 
 import com.enset.maintenance_backend.entities.Machine;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,69 +25,93 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
     private MaintenanceActionRepository maintenanceRepo;
     @Autowired
     private PredictionRepository predictionRepo;
+    @Autowired
+    private FailureRepository failureRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(MaintenancePlatformBackendApplication.class, args);
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
-        System.out.println("=== Testing DAO Layer ===");
+        System.out.println("\n=== Testing Repositories ===\n");
 
-        // 1. Create and test Machine
+        // 1. Test MachineRepository
+        System.out.println("--- Testing MachineRepository ---");
         Machine machine = new Machine();
-        machine.setName("Industrial Mixer");
-        machine.setSerialNumber("IMX-1000");
-        machineRepo.save(machine);
-        System.out.println("[PASS] Machine saved: " + machine.getName());
+        machine.setName("Industrial Press");
+        machine.setSerialNumber("IP-2023-001");
+        machine.setExpectedLifetimeHours(LocalDate.now().plusYears(10));
+        machine = machineRepo.save(machine);
+        System.out.println("Saved Machine: " + machine);
 
-        // 2. Test SensorData operations
-        SensorData data = new SensorData();
-        data.setVibrationX(0.8);
-        data.setVibrationY(0.6);
-        data.setTemperature(32.5);
-        data.setMachine(machine);
-        sensorDataRepo.save(data);
+        // 2. Test SensorDataRepository
+        System.out.println("\n--- Testing SensorDataRepository ---");
+        SensorData data1 = new SensorData();
+        data1.setVibrationX(0.5);
+        data1.setVibrationY(0.3);
+        data1.setSpeedSet(1200.0);
+        data1.setLoadValue(75.0);
+        data1.setMachine(machine);
+        sensorDataRepo.save(data1);
 
-        List<SensorData> readings = sensorDataRepo.findLatestReadings(machine.getId(), 5);
-        System.out.println("[PASS] Found " + readings.size() + " sensor readings");
+        SensorData data2 = new SensorData();
+        data2.setVibrationX(0.6);
+        data2.setVibrationY(0.4);
+        data2.setSpeedSet(1250.0);
+        data2.setLoadValue(80.0);
+        data2.setMachine(machine);
+        sensorDataRepo.save(data2);
 
-        // 3. Test MaintenanceAction
+        List<SensorData> latestReadings = sensorDataRepo.findLatestReadings(machine.getId(), 1);
+        System.out.println("Latest sensor reading: " + latestReadings.get(0));
+
+        // 3. Test MaintenanceActionRepository
+        System.out.println("\n--- Testing MaintenanceActionRepository ---");
         MaintenanceAction action = new MaintenanceAction();
-        action.setActionDate(LocalDateTime.now());
         action.setDescription("Bearing replacement");
         action.setCost(450.0);
+        action.setActionDate(LocalDateTime.now());
         action.setIsPreventive(true);
         action.setMachine(machine);
         maintenanceRepo.save(action);
 
-        Double maintenanceCost = maintenanceRepo.calculateMaintenanceCost(
-                machine.getId(),
-                LocalDateTime.now().minusMonths(1),
-                LocalDateTime.now()
-        );
-        System.out.println("[PASS] Maintenance cost: $" + maintenanceCost);
+        List<MaintenanceAction> preventiveActions = maintenanceRepo
+                .findByIsPreventiveAndMachineId(true, machine.getId());
+        System.out.println("Preventive actions: " + preventiveActions);
 
-        // 4. Test Prediction
+        // 4. Test PredictionRepository
+        System.out.println("\n--- Testing PredictionRepository ---");
         Prediction prediction = new Prediction();
-        prediction.setPredictedRulHours(120.5);
+        prediction.setPredictedRulHours(850.0);
         prediction.setConfidence(0.92);
-        prediction.setFaultType("bearing_wear");
+        prediction.setFaultType("Bearing wear");
         prediction.setMachine(machine);
         predictionRepo.save(prediction);
 
-        List<Prediction> highConfidence = predictionRepo.findHighConfidencePredictions(
-                machine.getId(),
-                0.9
-        );
-        System.out.println("[PASS] High-confidence predictions: " + highConfidence.size());
+        List<Prediction> highConfidence = predictionRepo
+                .findHighConfidencePredictions(machine.getId(), 0.9);
+        System.out.println("High confidence predictions: " + highConfidence);
 
-        // 5. Test soft delete
+        Double avgRUL = predictionRepo.calculateAverageRUL(machine.getId());
+        System.out.println("Average RUL: " + avgRUL);
+
+        // 5. Test FailureRepository
+        System.out.println("\n--- Testing FailureRepository ---");
+        Failure failure = new Failure();
+        failure.setDowntimeHours(8.5);
+        failure.setFaultType("Motor burnout");
+        failure.setMachine(machine);
+        failureRepo.save(failure);
+
+        // Test soft delete from BaseRepository
+        System.out.println("\n--- Testing BaseRepository softDelete ---");
         machineRepo.softDelete(machine.getId());
-        System.out.println("[PASS] Machine soft-deleted. Active: " +
-                Objects.requireNonNull(machineRepo.findById(machine.getId()).orElse(null)).getIsActive());
+        System.out.println("Machine active status after soft delete: " +
+                machineRepo.findById(machine.getId()).get().getIsActive());
 
-        System.out.println("=== All Tests Passed ===");
+        System.out.println("\n=== Repository Testing Complete ===");
     }
 }
 

@@ -15,6 +15,8 @@ import java.util.List;
 public class Machine extends BaseEntity{
     private String name;
     private String serialNumber;
+    @Column(name="expected_lifetime_hours")
+    private LocalDate expectedLifetimeHours;
 
     @OneToMany(mappedBy = "machine",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<SensorData> sensorData = new ArrayList<>();
@@ -24,4 +26,7 @@ public class Machine extends BaseEntity{
 
     @OneToMany(mappedBy = "machine")
     private List<Prediction> predictions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "machine")
+    private List<Failure> failures = new ArrayList<>();
 }

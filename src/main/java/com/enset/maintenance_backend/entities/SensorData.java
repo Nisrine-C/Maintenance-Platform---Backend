@@ -11,9 +11,14 @@ import java.time.LocalDateTime;
 @Table(name = "sensor_data")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class SensorData extends BaseEntity{
+    @Column(name="vibration_x")
     private Double vibrationX;
+    @Column(name="vibration_y")
     private Double vibrationY;
-    private Double temperature;
+    @Column(name="speed_set")
+    private Double speedSet;
+    @Column(name="load_value")
+    private Double loadValue;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name= "machine_id")
