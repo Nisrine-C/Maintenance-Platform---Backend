@@ -2,23 +2,26 @@ package com.enset.maintenance_backend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="maintenance_actions")
 @Data @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class MaintenanceAction extends BaseEntity {
-    @Column(name="is_preventative")
+    @Column(name="is_preventive")
     private Boolean isPreventive;
-    private String description;
-    private Double cost;
+    @Column(name="action_description")
+    private String actionDescription;
+    private float cost;
     @Column(name="action_date")
-    private LocalDateTime actionDate;
+    private Date actionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "machine_id")
+    @ManyToOne
     private Machine machine;
 }

@@ -2,6 +2,7 @@ package com.enset.maintenance_backend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,16 +13,17 @@ import java.util.List;
 @Entity
 @Table(name="machines")
 @Data @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class Machine extends BaseEntity{
     private String name;
     private String serialNumber;
     @Column(name="expected_lifetime_hours")
-    private LocalDate expectedLifetimeHours;
+    private float expectedLifetimeHours;
 
-    @OneToMany(mappedBy = "machine",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "machine",cascade = CascadeType.ALL)
     private List<SensorData> sensorData = new ArrayList<>();
 
-    @OneToMany(mappedBy = "machine")
+    @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)
     private List<MaintenanceAction> maintenanceActions = new ArrayList<>();
 
     @OneToMany(mappedBy = "machine")

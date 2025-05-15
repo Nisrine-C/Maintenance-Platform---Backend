@@ -2,6 +2,7 @@ package com.enset.maintenance_backend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "sensor_data")
 @Data @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class SensorData extends BaseEntity{
     @Column(name="vibration_x")
     private Double vibrationX;
@@ -20,7 +22,6 @@ public class SensorData extends BaseEntity{
     @Column(name="load_value")
     private Double loadValue;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name= "machine_id")
+    @ManyToOne
     private Machine machine;
 }

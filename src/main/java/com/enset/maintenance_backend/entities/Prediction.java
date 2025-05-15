@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Prediction extends BaseEntity{
     @Column(name = "predicted_rul_hours")
-    private Double predictedRulHours;
-    private Double confidence;
+    private float predictedRulHours;
+    private float confidence;
     @Column(name="fault_type")
     private String faultType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="machine_id")
+    @ManyToOne
     private Machine machine;
 }
