@@ -1,27 +1,11 @@
 # Maintenance-Platform---Backend
 ### **1. Domain Layer (Entities)**
 
-```markdown
-```mermaid
-flowchart TB
-    subgraph Repository_Layer
-        A[MachineRepository] -->|findBySerialNumber| B[(Machines)]
-        C[SensorDataRepository] -->|deleteByTimestampBefore| D[(SensorData)]
-        E[MaintenanceRepository] -->|calculateTotalCost| F[(Maintenance)]
-    end
-```
+<img src="./img/tables.png">
 
 ### **2. Repository Layer**
 
-```markdown
-```mermaid
-flowchart TB
-subgraph Repository_Layer
-A[MachineRepository] -->|findBySerialNumber| B[(Machines)]
-C[SensorDataRepository] -->|deleteByTimestampBefore| D[(SensorData)]
-E[MaintenanceRepository] -->|calculateTotalCost| F[(Maintenance)]
-end
-```
+<img src="./img/RepositoryLayer.png">
 
 **Key Operations**:
 - Standard CRUD (Create, Read, Update, **Delete**)
