@@ -3,7 +3,9 @@ package com.enset.maintenance_backend.mappers;
 import com.enset.maintenance_backend.dtos.SensorDataDTO;
 import com.enset.maintenance_backend.entities.SensorData;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SensorDataMapper extends BaseMapper<SensorData, SensorDataDTO> {
     @Override
     public SensorDataDTO fromEntity(SensorData entity) {

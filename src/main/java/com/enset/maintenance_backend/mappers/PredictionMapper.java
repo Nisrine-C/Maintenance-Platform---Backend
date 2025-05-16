@@ -3,7 +3,9 @@ package com.enset.maintenance_backend.mappers;
 import com.enset.maintenance_backend.dtos.PredictionDTO;
 import com.enset.maintenance_backend.entities.Prediction;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PredictionMapper extends BaseMapper<Prediction, PredictionDTO> {
     @Override
     public PredictionDTO fromEntity(Prediction entity) {
