@@ -1,4 +1,4 @@
 package com.enset.maintenance_backend.dtos;
 
-public class PredictionDTO {
+public class PredictionDTO extends BaseDTO {
 }
