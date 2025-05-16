@@ -15,6 +15,4 @@ public interface GenericService<DTO extends BaseDTO, E extends BaseEntity,ID> {
     DTO update(ID id, DTO dto);
 
     void softDelete(ID id);
-
-
 }
