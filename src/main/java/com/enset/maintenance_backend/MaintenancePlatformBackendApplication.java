@@ -1,6 +1,7 @@
 package com.enset.maintenance_backend;
 
 import com.enset.maintenance_backend.entities.Machine;
+
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -36,7 +37,47 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+        Machine machine = new Machine();
+        machine.setName("Industrial Press");
+        machine.setSerialNumber("IP-2023-001");
+        machineRepo.save(machine);
 
+        System.out.println("_________________________________");
+        System.out.println(machine.getId());
+        System.out.println(machine.getName());
+        System.out.println(machine.getSerialNumber());
+        System.out.println(machine.getCreatedAt());
+        System.out.println(machine.getUpdatedAt());
+        System.out.println(machine.getIsActive());
+        System.out.println("_________________________________");
+
+        Machine machine2 = new Machine();
+        machine2.setName("Industrial Press");
+        machine2.setSerialNumber("IP-2023-001");
+        machineRepo.save(machine2);
+
+        System.out.println("_________________________________");
+        System.out.println(machine2.getId());
+        System.out.println(machine2.getName());
+        System.out.println(machine2.getSerialNumber());
+        System.out.println(machine2.getCreatedAt());
+        System.out.println(machine2.getUpdatedAt());
+        System.out.println(machine2.getIsActive());
+        System.out.println("_________________________________");
+
+        Machine machine3 = new Machine();
+        machine3.setName("Industrial Press");
+        machine3.setSerialNumber("IP-2023-001");
+        machineRepo.save(machine3);
+
+        System.out.println("_________________________________");
+        System.out.println(machine3.getId());
+        System.out.println(machine3.getName());
+        System.out.println(machine3.getSerialNumber());
+        System.out.println(machine3.getCreatedAt());
+        System.out.println(machine3.getUpdatedAt());
+        System.out.println(machine3.getIsActive());
+        System.out.println("_________________________________");
     }
 }
 
