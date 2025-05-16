@@ -11,5 +11,5 @@ public class MaintenanceActionDTO extends BaseDTO{
     private String actionDescription;
     private Float cost;
     private Boolean isPreventive;
-    private Integer machineId;
+    private Long machineId;
 }
