@@ -8,5 +8,5 @@ public class SensorDataDTO extends BaseDTO{
     private Float vibrationY;
     private Float speedSet;
     private Float loadValue;
-    private Integer machineId;
+    private Long machineId;
 }

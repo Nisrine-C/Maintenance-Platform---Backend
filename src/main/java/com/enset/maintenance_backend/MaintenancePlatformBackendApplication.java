@@ -1,7 +1,12 @@
 package com.enset.maintenance_backend;
 
+import com.enset.maintenance_backend.dtos.FailureDTO;
+import com.enset.maintenance_backend.dtos.MaintenanceActionDTO;
+import com.enset.maintenance_backend.dtos.SensorDataDTO;
 import com.enset.maintenance_backend.entities.Machine;
 
+import com.enset.maintenance_backend.services.MachineActionServiceImp;
+import com.enset.maintenance_backend.services.SensorDataServiceImp;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,9 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.enset.maintenance_backend.repositories.*;
 import com.enset.maintenance_backend.entities.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,6 +34,11 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
     private PredictionRepository predictionRepo;
     @Autowired
     private FailureRepository failureRepo;
+
+    @Autowired
+    private MachineActionServiceImp machineService ;
+@Autowired
+    private SensorDataServiceImp sensorDataService ;
 
     public static void main(String[] args) {
         SpringApplication.run(MaintenancePlatformBackendApplication.class, args);
@@ -77,7 +87,31 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
         System.out.println(machine3.getCreatedAt());
         System.out.println(machine3.getUpdatedAt());
         System.out.println(machine3.getIsActive());
-        System.out.println("_________________________________");
+        System.out.println("____________________maintenance_____________");
+
+
+        MaintenanceActionDTO dto = new MaintenanceActionDTO();
+        dto.setActionDescription("test");
+        dto.setCost(33.000f);
+        dto.setMachineId(1L);
+        dto.setActionDate(new Date());
+        dto.setIsPreventive(false);
+        machineService.create(dto);
+        System.out.println("____________________sensor_____________");
+        SensorDataDTO sensorDataDTO = new SensorDataDTO();
+        sensorDataDTO.setMachineId(1L);
+        sensorDataDTO.setVibrationX(2.2f);
+        sensorDataDTO.setVibrationY(2.2f);
+        sensorDataDTO.setSpeedSet(2.2f);
+        sensorDataDTO.setMachineId(1L);
+        sensorDataDTO.setLoadValue(null);
+       sensorDataService.create(sensorDataDTO);
+
+
+
+
+
+
     }
 }
 
