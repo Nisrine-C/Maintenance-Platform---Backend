@@ -9,17 +9,17 @@ import java.util.List;
 @CrossOrigin("*")
 public interface GenericController<DTO extends BaseDTO,ID> {
     @GetMapping("/")
-    public List<DTO> entities();
+    List<DTO> entities();
 
     @GetMapping("/{id}")
-    public DTO getEntity(@PathVariable ID id);
+    DTO getEntity(@PathVariable ID id);
 
     @PostMapping("/")
-    public DTO save(@RequestBody DTO entityDTO);
+    DTO save(@RequestBody DTO entityDTO);
 
     @PutMapping("/{id}")
-    public DTO update(@PathVariable ID id, @RequestBody DTO entityDTO);
+    DTO update(@PathVariable ID id, @RequestBody DTO entityDTO);
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable ID id);
+    void delete(@PathVariable ID id);
 }
