@@ -14,7 +14,7 @@ public class SensorDataController {
 
     private final SensorDataService sensorDataService;
 
-    @GetMapping
+    @GetMapping("/sensor-data")
     public List<SensorDataDTO> getAllSensorData() {
         return sensorDataService.findAll();
     }
