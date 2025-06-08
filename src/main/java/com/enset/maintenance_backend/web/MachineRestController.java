@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
-
 public class MachineRestController implements GenericController<MachineDTO, Long> {
     private MachineService machineService;
 
