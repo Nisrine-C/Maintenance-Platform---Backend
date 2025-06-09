@@ -48,7 +48,7 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
     @Transactional
     public void run(String... args) throws Exception {
         Machine machine = new Machine();
-        machine.setName("Industrial Press");
+        machine.setName("saratestIndustrial Press");
         machine.setSerialNumber("IP-2023-001");
         machineRepo.save(machine);
 
@@ -62,7 +62,7 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
         System.out.println("_________________________________");
 
         Machine machine2 = new Machine();
-        machine2.setName("Industrial Press");
+        machine2.setName("saratestIndustrial Press");
         machine2.setSerialNumber("IP-2023-001");
         machineRepo.save(machine2);
 
@@ -106,6 +106,12 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
         sensorDataDTO.setMachineId(1L);
         sensorDataDTO.setLoadValue(null);
        sensorDataService.create(sensorDataDTO);
+
+        System.out.println("Total Machines: " + machineRepo.count());
+        System.out.println("Active Machines: " + machineRepo.countByIsActiveTrue());
+        System.out.println("Faults: " + predictionRepo.countByConfidenceGreaterThan(0.8f));
+        System.out.println("EOL: " + predictionRepo.countByPredictedRulHoursLessThan(100));
+
 
 
 

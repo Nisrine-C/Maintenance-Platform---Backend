@@ -1,12 +1,11 @@
 package com.enset.maintenance_backend.services;
 
 import com.enset.maintenance_backend.dtos.MachineDTO;
+import com.enset.maintenance_backend.dtos.GlobalStatsDto;
 import com.enset.maintenance_backend.entities.Machine;
 import com.enset.maintenance_backend.exceptions.MachineNotFoundException;
 import com.enset.maintenance_backend.mappers.MachineMapper;
-import com.enset.maintenance_backend.repositories.MachineRepository;
-import com.enset.maintenance_backend.repositories.MaintenanceActionRepository;
-import com.enset.maintenance_backend.repositories.SensorDataRepository;
+import com.enset.maintenance_backend.repositories.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,8 @@ public class MachineServiceImp implements MachineService{
     private MaintenanceActionRepository maintenanceActionRepository;
     private SensorDataRepository sensorDataRepository;
     private MachineMapper machineMapper;
+    private PredictionRepository predictionRepository;
+    private FailureRepository failureRepository;
 
 
     @Override
@@ -76,5 +77,15 @@ public class MachineServiceImp implements MachineService{
                 orElseThrow(()-> new MachineNotFoundException("Machine not found"));
         machine.setIsActive(false);
         machineRepository.save(machine);
+    }
+
+    public GlobalStatsDto getGlobalStats() {
+        long total = machineRepository.count();
+
+        long predictedFaults = predictionRepository.countByConfidenceGreaterThan(0.8f); // par exemple
+        long nearEndOfLife = predictionRepository.countByPredictedRulHoursLessThan(100); // par exemple < 100h
+        long active = machineRepository.countByIsActiveTrue();
+        return new GlobalStatsDto(total, predictedFaults, nearEndOfLife, active);
+
     }
 }
