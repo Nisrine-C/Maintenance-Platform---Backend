@@ -7,6 +7,7 @@ import com.enset.maintenance_backend.mappers.FailureMapper;
 import com.enset.maintenance_backend.repositories.FailureRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,5 +71,15 @@ public class FailureServiceImp implements FailureService {
         failure.setIsActive(false);
         failureRepository.save(failure);
         log.info("Failure with ID {} soft deleted (isActive set to false)", id);
+    }
+    public List<FailureDTO> getLatestFailureAlerts(int limit) {
+        List<Failure> failures = failureRepository.findLatestFailures(PageRequest.of(0, limit));
+        return failures.stream().map(f -> new FailureDTO(
+                f.getId(),
+                f.getFaultType(),
+                f.getDowntimeHours(),
+                f.getMachine().getName(),
+                f.getCreatedAt()
+        )).toList();
     }
 }
