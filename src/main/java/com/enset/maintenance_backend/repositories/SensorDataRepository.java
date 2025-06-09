@@ -24,4 +24,6 @@ public interface SensorDataRepository extends BaseRepository<SensorData,Long> {
     void purgeOldData(
             @Param("machineId") Long machineId,
             @Param("cutoff") LocalDateTime cutoff);
+
+    List<SensorData> findByMachineIdOrderByCreatedAtAsc(Long machineId);
 }

@@ -1,6 +1,8 @@
 package com.enset.maintenance_backend.web;
 
+import com.enset.maintenance_backend.dtos.HistogramBinDto;
 import com.enset.maintenance_backend.dtos.SensorDataDTO;
+import com.enset.maintenance_backend.dtos.VibrationTrendDto;
 import com.enset.maintenance_backend.services.SensorDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,16 @@ public class SensorDataController {
     @PatchMapping("/sensor-data/{id}/soft-delete")
     public void softDeleteSensorData(@PathVariable Long id) {
         sensorDataService.softDelete(id);
+    }
+
+    @GetMapping("/trends")
+    public List<VibrationTrendDto> getTrends(@RequestParam Long machineId) {
+        return sensorDataService.getVibrationTrends(machineId);
+    }
+
+    @GetMapping("/histogram")
+    public List<HistogramBinDto> getHistogram(@RequestParam Long machineId,
+                                              @RequestParam(defaultValue = "0.2") double binSize) {
+        return sensorDataService.getVibrationHistogram(machineId, binSize);
     }
 }

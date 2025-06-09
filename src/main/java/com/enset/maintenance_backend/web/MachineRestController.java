@@ -1,8 +1,10 @@
 package com.enset.maintenance_backend.web;
 
+import com.enset.maintenance_backend.dtos.GlobalStatsDto;
 import com.enset.maintenance_backend.dtos.MachineDTO;
 import com.enset.maintenance_backend.exceptions.MachineNotFoundException;
 import com.enset.maintenance_backend.services.MachineService;
+import com.enset.maintenance_backend.services.MachineServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,11 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 
 public class MachineRestController implements GenericController<MachineDTO, Long> {
     private MachineService machineService;
+    private MachineServiceImp machineServiceImp;
 
     @Override
     @GetMapping("/machines")
@@ -44,5 +48,11 @@ public class MachineRestController implements GenericController<MachineDTO, Long
     @DeleteMapping("/machines/{id}")
     public void delete(@PathVariable Long id) {
         machineService.softDelete(id);
+    }
+
+//retourne les statistiques globales des machines
+    @GetMapping("/stats/global")
+    public GlobalStatsDto getGlobalStats() {
+        return machineService.getGlobalStats();
     }
 }
