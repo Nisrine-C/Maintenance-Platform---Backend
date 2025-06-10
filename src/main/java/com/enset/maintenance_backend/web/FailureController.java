@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/failures")
+@RequestMapping("/api/")
 @AllArgsConstructor
 @CrossOrigin("*")
 public class FailureController implements GenericController<FailureDTO, Long> {

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/predictions")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class PredictionController {
 
     private final PredictionService predictionService;
 
-    @GetMapping
+    @GetMapping("/prediction")
     public List<PredictionDTO> getAllPredictions() {
         return predictionService.findAll();
     }
@@ -24,7 +24,7 @@ public class PredictionController {
         return predictionService.getEntityById(id);
     }
 
-    @PostMapping
+    @PostMapping("/prediction")
     public PredictionDTO createPrediction(@RequestBody PredictionDTO dto) {
         return predictionService.create(dto);
     }
