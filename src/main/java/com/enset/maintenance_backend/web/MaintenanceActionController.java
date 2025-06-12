@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/maintenance-actions")
+@RequestMapping("/api/")
 @AllArgsConstructor
 @CrossOrigin("*")
 public class MaintenanceActionController implements GenericController<MaintenanceActionDTO, Long> {

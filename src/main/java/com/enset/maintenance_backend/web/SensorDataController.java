@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/sensor-data")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class SensorDataController {
 
     private final SensorDataService sensorDataService;
 
-    @GetMapping
+    @GetMapping("/sensor-data")
     public List<SensorDataDTO> getAllSensorData() {
         return sensorDataService.findAll();
     }
@@ -26,7 +26,7 @@ public class SensorDataController {
         return sensorDataService.getEntityById(id);
     }
 
-    @PostMapping
+    @PostMapping("/sensor-data")
     public SensorDataDTO createSensorData(@RequestBody SensorDataDTO dto) {
         return sensorDataService.create(dto);
     }
