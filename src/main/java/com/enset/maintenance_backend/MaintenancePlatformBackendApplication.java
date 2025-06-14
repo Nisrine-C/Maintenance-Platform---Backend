@@ -3,6 +3,8 @@ package com.enset.maintenance_backend;
 import com.enset.maintenance_backend.dtos.FailureDTO;
 import com.enset.maintenance_backend.dtos.MaintenanceActionDTO;
 import com.enset.maintenance_backend.dtos.SensorDataDTO;
+import com.enset.maintenance_backend.dtos.MaintenanceActionDTO;
+import com.enset.maintenance_backend.dtos.SensorDataDTO;
 import com.enset.maintenance_backend.entities.Machine;
 
 import com.enset.maintenance_backend.services.MachineActionServiceImp;
@@ -106,6 +108,9 @@ public class MaintenancePlatformBackendApplication  implements CommandLineRunner
         sensorDataDTO.setMachineId(1L);
         sensorDataDTO.setLoadValue(null);
        sensorDataService.create(sensorDataDTO);
+
+
+
 
 
 
