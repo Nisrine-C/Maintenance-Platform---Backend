@@ -16,7 +16,7 @@ public class PredictionMapper extends BaseMapper<Prediction, PredictionDTO> {
     public PredictionDTO fromEntity(Prediction entity) {
         PredictionDTO predictionDTO = new PredictionDTO();
         BeanUtils.copyProperties(entity, predictionDTO);
-        //predictionDTO.setMachineId((entity.getMachine().getId()));
+        predictionDTO.setMachineId((entity.getMachine().getId()));
         return predictionDTO;
     }
 
@@ -24,9 +24,9 @@ public class PredictionMapper extends BaseMapper<Prediction, PredictionDTO> {
     public Prediction fromDTO(PredictionDTO dto) {
        Prediction prediction = new Prediction();
        BeanUtils.copyProperties(dto, prediction);
-//        Machine machine = machineRepository.findById((dto.getMachineId()))
-//                .orElseThrow(() -> new RuntimeException("Machine not found with id " + dto.getMachineId()));
-//        prediction.setMachine(machine);
+       Machine machine = machineRepository.findById((dto.getMachineId()))
+               .orElseThrow(() -> new RuntimeException("Machine not found with id " + dto.getMachineId()));
+       prediction.setMachine(machine);
        return prediction;
     }
 }

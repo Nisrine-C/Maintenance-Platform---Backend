@@ -31,4 +31,6 @@ public class Machine extends BaseEntity{
 
     @OneToMany(mappedBy = "machine")
     private List<Failure> failures = new ArrayList<>();
+
+
 }

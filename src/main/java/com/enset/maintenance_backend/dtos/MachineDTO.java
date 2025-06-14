@@ -1,6 +1,7 @@
 package com.enset.maintenance_backend.dtos;
 
 
+import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Date;

@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @Builder
 public class SensorData extends BaseEntity{
     @Column(name="vibration_x")
-    private Double vibrationX;
+    private Float vibrationX;
     @Column(name="vibration_y")
-    private Double vibrationY;
+    private Float vibrationY;
     @Column(name="speed_set")
-    private Double speedSet;
+    private Float speedSet;
     @Column(name="load_value")
-    private Double loadValue;
+    private Float loadValue;
 
     @ManyToOne
     private Machine machine;

@@ -48,6 +48,7 @@ public class PredictionServiceImp implements PredictionService {
     public PredictionDTO create(PredictionDTO dto) {
         log.info("Creating new prediction");
         Prediction prediction = predictionMapper.fromDTO(dto);
+        prediction.setId(null);
         Prediction saved = predictionRepository.save(prediction);
         return predictionMapper.fromEntity(saved);
     }
