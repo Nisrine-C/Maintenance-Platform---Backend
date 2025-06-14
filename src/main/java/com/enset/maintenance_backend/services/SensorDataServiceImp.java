@@ -44,6 +44,14 @@ public class SensorDataServiceImp implements SensorDataService {
         return sensorDataMapper.fromEntity(sensorData);
     }
 
+    public List<SensorDataDTO> findAllByMachineId(Long id){
+        List<SensorData> sensorDataList = sensorDataRepository.findByMachine_Id(id);
+        List<SensorDataDTO> sensorDataDTOS = sensorDataList.stream()
+                .map(sensorData -> sensorDataMapper.fromEntity(sensorData))
+                .collect(Collectors.toList());
+        return sensorDataDTOS;
+    }
+
     @Override
     public SensorDataDTO create(SensorDataDTO dto) {
         log.info("Creating new sensor data");

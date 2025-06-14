@@ -18,6 +18,9 @@ public interface SensorDataRepository extends BaseRepository<SensorData,Long> {
             @Param("machineId") Long machineId,
             @Param("limit") int limit);
 
+    @Query("SELECT s FROM SensorData s WHERE s.machine.id = :machineId order by s.createdAt")
+    List<SensorData> findByMachine_Id(@Param("machineId") Long id);
+
     @Modifying
     @Query("DELETE FROM SensorData sd " +
             "WHERE sd.createdAt < :cutoff AND sd.machine.id = :machineId")

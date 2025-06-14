@@ -19,6 +19,11 @@ public class SensorDataController {
         return sensorDataService.findAll();
     }
 
+    @GetMapping("/sensor-data-machine/{id}")
+    public List<SensorDataDTO> findAllByMachineId(@PathVariable Long id){
+        return sensorDataService.findAllByMachineId(id);
+    }
+
     @GetMapping("/sensor-data/{id}")
     public SensorDataDTO getSensorDataById(@PathVariable Long id) {
         return sensorDataService.getEntityById(id);
