@@ -1,5 +1,6 @@
 package com.enset.maintenance_backend.web;
 
+import com.enset.maintenance_backend.dtos.GlobalStatsDto;
 import com.enset.maintenance_backend.dtos.MachineDTO;
 import com.enset.maintenance_backend.exceptions.MachineNotFoundException;
 import com.enset.maintenance_backend.services.MachineService;
@@ -44,5 +45,11 @@ public class MachineRestController implements GenericController<MachineDTO, Long
     @DeleteMapping("/machine/{id}")
     public void delete(@PathVariable Long id) {
         machineService.softDelete(id);
+    }
+
+//retourne les statistiques globales des machines
+    @GetMapping("/stats/global")
+    public GlobalStatsDto getGlobalStats() {
+        return machineService.getGlobalStats();
     }
 }

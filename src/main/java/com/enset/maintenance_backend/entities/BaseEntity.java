@@ -10,7 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @MappedSuperclass
@@ -23,10 +22,10 @@ public abstract class BaseEntity {
 
     @CreatedDate
     @Column(updatable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name="is_active")
     private Boolean isActive= true;

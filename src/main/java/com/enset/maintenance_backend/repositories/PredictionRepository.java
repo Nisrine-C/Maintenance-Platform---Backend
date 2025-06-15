@@ -17,5 +17,8 @@ public interface PredictionRepository extends BaseRepository<Prediction,Long>{
     @Query("SELECT AVG(p.predictedRulHours) FROM Prediction p " +
             "WHERE p.machine.id = :machineId")
     Double calculateAverageRUL(@Param("machineId") Long machineId);
+//
+    long countByConfidenceGreaterThan(float confidence);
+    long countByPredictedRulHoursLessThan(float hours);
 }
 

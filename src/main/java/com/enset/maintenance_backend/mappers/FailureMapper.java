@@ -16,7 +16,7 @@ public class FailureMapper extends BaseMapper<Failure, FailureDTO> {
     public FailureDTO fromEntity(Failure entity) {
        FailureDTO failureDTO = new FailureDTO();
         BeanUtils.copyProperties(entity, failureDTO);
-       // failureDTO.setMachineId((entity.getMachine().getId()));
+        failureDTO.setMachineId((entity.getMachine().getId()));
         return failureDTO;
 
     }
@@ -25,9 +25,9 @@ public class FailureMapper extends BaseMapper<Failure, FailureDTO> {
     public Failure fromDTO(FailureDTO dto) {
         Failure failure = new Failure();
         BeanUtils.copyProperties(dto, failure);
-//        Machine machine = machineRepository.findById((dto.getMachineId()))
-//                .orElseThrow(() -> new RuntimeException("Machine not found with id " + dto.getMachineId()));
-//        failure.setMachine(machine);
+        Machine machine = machineRepository.findById((dto.getMachineId()))
+                .orElseThrow(() -> new RuntimeException("Machine not found with id " + dto.getMachineId()));
+        failure.setMachine(machine);
         return failure;
     }
 }

@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MachineRepository extends BaseRepository<Machine,Long>{
     Page<Machine> findByNameContaining(String name, Pageable pageable);
+//
+long countByIsActiveTrue();
 }
