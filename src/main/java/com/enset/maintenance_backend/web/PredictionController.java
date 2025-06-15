@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class PredictionController {
 
     private final PredictionService predictionService;

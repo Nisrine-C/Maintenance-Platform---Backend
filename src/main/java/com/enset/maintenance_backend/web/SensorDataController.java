@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class SensorDataController {
 
     private final SensorDataService sensorDataService;

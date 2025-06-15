@@ -4,6 +4,7 @@ package com.enset.maintenance_backend.web;
 import com.enset.maintenance_backend.dtos.FailureDTO;
 import com.enset.maintenance_backend.services.FailureService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +45,12 @@ public class FailureController implements GenericController<FailureDTO, Long> {
     @DeleteMapping("/failure/{id}")
     public void delete(@PathVariable Long id) {
         failureService.softDelete(id);
+    }
+
+    @GetMapping("/latest/alerts")
+    public ResponseEntity<List<FailureDTO>> getLatestFailures(
+            @RequestParam(defaultValue = "5") int limit
+    ) {
+        return ResponseEntity.ok(failureService.getLatestFailureAlerts(limit));
     }
 }
