@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Failure extends BaseEntity{
     @Column(name="downtime_hours")
-    private float downtimeHours;
+    private Float downtimeHours;
     @Column(name="fault_type")
     private String faultType;
 

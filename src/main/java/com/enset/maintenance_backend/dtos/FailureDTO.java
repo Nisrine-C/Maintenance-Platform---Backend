@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class FailureDTO extends BaseDTO {
     private Long machineId;
-    private float downtimeHours;
+    private Float downtimeHours;
     private String faultType;
 
 
