@@ -79,7 +79,7 @@ public class FailureServiceImp implements FailureService {
                 f.getId(),
                 f.getFaultType(),
                 f.getDowntimeHours(),
-                java.sql.Timestamp.valueOf(f.getCreatedAt()), // conversion si nécessaire
+                java.sql.Timestamp.valueOf(String.valueOf(f.getCreatedAt())),
                 f.getIsActive(),
                 f.getMachine().getId()
         )).toList();
