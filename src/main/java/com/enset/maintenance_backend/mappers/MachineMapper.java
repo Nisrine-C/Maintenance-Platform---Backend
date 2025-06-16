@@ -21,4 +21,9 @@ public class MachineMapper extends BaseMapper<Machine, MachineDTO>{
         return machine;
     }
 
+    public void updateEntityFromDTO(MachineDTO machineDTO, Machine machine){
+        super.updateEntityFromDTO(machineDTO,machine);
+        BeanUtils.copyProperties(machineDTO,machine,"id");
+    }
+
 }

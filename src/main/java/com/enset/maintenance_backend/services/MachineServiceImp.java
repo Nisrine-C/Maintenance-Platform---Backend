@@ -80,6 +80,13 @@ public class MachineServiceImp implements MachineService{
         machineRepository.save(machine);
     }
 
+    @Override
+    public void delete(Long id) {
+        Machine machine = machineRepository.findById(id).
+                orElseThrow(()-> new MachineNotFoundException("Machine not found"));
+        machineRepository.delete(machine);
+    }
+
     public GlobalStatsDto getGlobalStats() {
         long total = machineRepository.count();
         long predictedFaults = predictionRepository.countByConfidenceGreaterThan(0.8f); // par exemple

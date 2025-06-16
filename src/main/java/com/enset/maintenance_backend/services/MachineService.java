@@ -10,4 +10,6 @@ public interface MachineService extends GenericService<MachineDTO,Machine,Long>{
     void deleteMachine(Long id);
 
     public GlobalStatsDto getGlobalStats();
+
+    void delete(Long id);
 }

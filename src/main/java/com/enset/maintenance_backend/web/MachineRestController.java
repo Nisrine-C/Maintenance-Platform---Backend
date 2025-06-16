@@ -30,7 +30,7 @@ public class MachineRestController implements GenericController<MachineDTO, Long
     }
 
     @Override
-    @PostMapping("/machine/")
+    @PostMapping("/machine")
     public MachineDTO save(@RequestBody MachineDTO machineDTO) {
         return machineService.create(machineDTO);
     }
@@ -41,10 +41,15 @@ public class MachineRestController implements GenericController<MachineDTO, Long
         return machineService.update(id,machineDTO);
     }
 
+    @DeleteMapping("/machine/softdelete/{id}")
+    public void softDelete(@PathVariable Long id) {
+        machineService.softDelete(id);
+    }
+
     @Override
     @DeleteMapping("/machine/{id}")
     public void delete(@PathVariable Long id) {
-        machineService.softDelete(id);
+        machineService.delete(id);
     }
 
 //retourne les statistiques globales des machines
